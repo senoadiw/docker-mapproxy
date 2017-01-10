@@ -1,0 +1,16 @@
+version: '2'
+services:
+  mapproxy:
+    image: kartoza/mapproxy
+    hostname: mapproxy
+    volumes:
+      - ./mapproxy:/mapproxy
+  web:
+    image: nginx
+    hostname: nginx
+    volumes:
+      - ./nginx/sites-enabled:/etc/nginx/conf.d:ro
+    links:
+      - mapproxy:mapproxy
+    ports:
+      - "80:80"
